@@ -1,1 +1,7 @@
+# Mesh configuration for GraphQL API
+sources:
+  - name: OpenAPIBackend
+    handler:
+      openapi:
+        source: ./openapi.json
 
