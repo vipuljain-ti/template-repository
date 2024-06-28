@@ -9,6 +9,7 @@
   "paths": {
     "/hello": {
       "get": {
+        "operationId": "GetMessage",
         "summary": "Say Hello",
         "description": "Returns a hello message",
         "responses": {
