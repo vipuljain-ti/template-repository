@@ -4,7 +4,7 @@ import * as cdk from 'aws-cdk-lib';
 import { ProjectStack } from '../lib/project-stack';
 
 const app = new cdk.App();
-new ProjectStack(app, 'ProjectStack', {
+//new ProjectStack(app, 'ProjectStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
@@ -18,4 +18,5 @@ new ProjectStack(app, 'ProjectStack', {
   // env: { account: '123456789012', region: 'us-east-1' },
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+//});
+new ProjectStack(app, 'ProjectStackTest', {});
