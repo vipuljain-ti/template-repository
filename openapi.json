@@ -8,6 +8,7 @@
     "/users/{userId}": {
       "get": {
         "summary": "Get a user by ID",
+        "operationId": "GetUser",
         "parameters": [
           {
             "name": "userId",
@@ -35,6 +36,7 @@
     "/users": {
       "post": {
         "summary": "Create a new user",
+        "operationId": "CreateUser",
         "requestBody": {
           "required": true,
           "content": {
