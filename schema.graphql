@@ -1,0 +1,9 @@
+# Define the Query type with a hello field that returns a HelloMessage type
+type Query {
+  hello: HelloMessage
+}
+
+# Define the HelloMessage type with a single message field of type String
+type HelloMessage {
+  message: String
+}
