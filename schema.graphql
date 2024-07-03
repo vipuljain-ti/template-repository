@@ -28,7 +28,6 @@ input NewUser_Input {
   email: String!
 }
 
-scalar ObjMap
 
 enum HTTPMethod {
   GET
