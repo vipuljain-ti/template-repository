@@ -3,21 +3,41 @@ schema {
   mutation: Mutation
 }
 
-type Query {
-  user(id: Int!): User
-}
+directive @httpOperation(subgraph: String, path: String, operationSpecificHeaders: ObjMap, httpMethod: HTTPMethod, isBinary: Boolean, requestBaseBody: ObjMap, queryParamArgMap: ObjMap, queryStringOptionsByParam: ObjMap, jsonApiFields: Boolean) on FIELD_DEFINITION
 
-type Mutation {
-  createUser(input: NewUserInput!): User
+directive @transport(subgraph: String, kind: String, location: String, headers: ObjMap, queryStringOptions: ObjMap, queryParams: ObjMap) on OBJECT
+
+type Query {
+  """Get a user by ID"""
+  GetUser(userId: Int!): User
 }
 
 type User {
-  id: Int!
+  id: Int
+  name: String
+  email: String
+}
+
+type Mutation {
+  """Create a new user"""
+  CreateUser(input: NewUser_Input): User
+}
+
+input NewUser_Input {
   name: String!
   email: String!
 }
 
-input NewUserInput {
-  name: String!
-  email: String!
+scalar ObjMap
+
+enum HTTPMethod {
+  GET
+  HEAD
+  POST
+  PUT
+  DELETE
+  CONNECT
+  OPTIONS
+  TRACE
+  PATCH
 }
