@@ -1,1 +1,6 @@
-
+{
+  "GetWelcomeMessage": {
+    "request_vtl": "{\n  \"query\": \"query GetWelcomeMessage { hello { message } }\",\n  \"variables\": null,\n  \"operationName\": \"GetWelcomeMessage\"\n}",
+    "response_vtl": "$input.path('$').data.hello"
+  }
+}
