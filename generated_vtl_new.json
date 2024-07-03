@@ -1,6 +1,102 @@
 {
-  "GetWelcomeMessage": {
-    "request_vtl": "{\n  \"query\": \"query GetWelcomeMessage { hello { message } }\",\n  \"variables\": null,\n  \"operationName\": \"GetWelcomeMessage\"\n}",
-    "response_vtl": "$input.path('$').data.hello"
+  "ListDeletedTickets": {
+    "request_vtl": "#set($sort_by = $input.params(\"sort_by\"))\n#set($sort_order = $input.params(\"sort_order\"))\n{\n  \"query\": \"query MyQuery {\\n  ListDeletedTickets(sort_by: $sort_by,\\n    sort_order: $sort_order) {\\n    deleted_tickets {\\nactor {\\nid,\\n    name\\n \\n  },\\n  deleted_at,\\n  id,\\n  previous_state,\\n  subject\\n},\\ncount,\\nnext_page,\\nprevious_page\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.ListDeletedTickets"
+  },
+  "DeleteTicketPermanently": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"mutation MyMutation {\\n  DeleteTicketPermanently(ticket_id: $ticket_id) {\\n    job_status {\\nid,\\n  job_type,\\n  message,\\n  progress,\\n  results,\\n  status,\\n  total,\\n  url\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.DeleteTicketPermanently"
+  },
+  "RestoreDeletedTicket": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"mutation MyMutation {\\n  RestoreDeletedTicket(ticket_id: $ticket_id)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.RestoreDeletedTicket"
+  },
+  "BulkPermanentlyDeleteTickets": {
+    "request_vtl": "#set($ids = $input.params(\"ids\"))\n{\n  \"query\": \"mutation MyMutation {\\n  BulkPermanentlyDeleteTickets(ids: $ids) {\\n    job_status {\\nid,\\n  job_type,\\n  message,\\n  progress,\\n  results,\\n  status,\\n  total,\\n  url\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.BulkPermanentlyDeleteTickets"
+  },
+  "BulkRestoreDeletedTickets": {
+    "request_vtl": "#set($ids = $input.params(\"ids\"))\n{\n  \"query\": \"mutation MyMutation {\\n  BulkRestoreDeletedTickets(ids: $ids)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.BulkRestoreDeletedTickets"
+  },
+  "ListTicketProblems": {
+    "request_vtl": "{\n  \"query\": \"query MyQuery {\\n  ListTicketProblems\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.ListTicketProblems"
+  },
+  "AutocompleteProblems": {
+    "request_vtl": "#set($text = $input.params(\"text\"))\n{\n  \"query\": \"mutation MyMutation {\\n  AutocompleteProblems(text: $text)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.AutocompleteProblems"
+  },
+  "ListTickets": {
+    "request_vtl": "#set($external_id = $input.params(\"external_id\"))\n{\n  \"query\": \"query MyQuery {\\n  ListTickets(external_id: $external_id) {\\n    tickets {\\nallow_attachments,\\n  allow_channelback,\\n  assignee_email,\\n  assignee_id,\\n  attribute_value_ids,\\n  brand_id,\\n  collaborator_ids,\\n  collaborators {\\nemail,\\n    name\\n \\n  },\\n  created_at,\\n  custom_fields {\\nid,\\n    value\\n \\n  },\\n  custom_status_id,\\n  description,\\n  due_at,\\n  email_cc_ids,\\n  external_id,\\n  follower_ids,\\n  followup_ids,\\n  forum_topic_id,\\n  from_messaging_channel,\\n  group_id,\\n  has_incidents,\\n  id,\\n  is_public,\\n  macro_id,\\n  macro_ids,\\n  organization_id,\\n  priority,\\n  problem_id,\\n  raw_subject,\\n  recipient,\\n  requester_id,\\n  safe_update,\\n  sharing_agreement_ids,\\n  status,\\n  subject,\\n  submitter_id,\\n  tags,\\n  ticket_form_id,\\n  type,\\n  updated_at,\\n  updated_stamp,\\n  url,\\n  via {\\nchannel\\n \\n  },\\n  via_followup_source_id,\\n  via_id\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.ListTickets"
+  },
+  "CreateTicket": {
+    "request_vtl": "{\n  \"query\": \"mutation MyMutation {\\n  CreateTicket\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.CreateTicket"
+  },
+  "ShowTicket": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"query MyQuery {\\n  ShowTicket(ticket_id: $ticket_id) {\\n    ticket {\\nallow_attachments,\\n  allow_channelback,\\n  assignee_email,\\n  assignee_id,\\n  attribute_value_ids,\\n  brand_id,\\n  collaborator_ids,\\n  collaborators {\\nemail,\\n    name\\n \\n  },\\n  created_at,\\n  custom_fields {\\nid,\\n    value\\n \\n  },\\n  custom_status_id,\\n  description,\\n  due_at,\\n  email_cc_ids,\\n  external_id,\\n  follower_ids,\\n  followup_ids,\\n  forum_topic_id,\\n  from_messaging_channel,\\n  group_id,\\n  has_incidents,\\n  id,\\n  is_public,\\n  macro_id,\\n  macro_ids,\\n  organization_id,\\n  priority,\\n  problem_id,\\n  raw_subject,\\n  recipient,\\n  requester_id,\\n  safe_update,\\n  sharing_agreement_ids,\\n  status,\\n  subject,\\n  submitter_id,\\n  tags,\\n  ticket_form_id,\\n  type,\\n  updated_at,\\n  updated_stamp,\\n  url,\\n  via {\\nchannel\\n \\n  },\\n  via_followup_source_id,\\n  via_id\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.ShowTicket"
+  },
+  "UpdateTicket": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"mutation MyMutation {\\n  UpdateTicket(ticket_id: $ticket_id) {\\n    audit {\\nauthor_id,\\n  created_at,\\n  events {\\nbody,\\n    field_name,\\n    id,\\n    type,\\n    value\\n \\n  },\\n  id,\\n  ticket_id,\\n  via {\\nchannel,\\n    source {\\nfrom {\\naddress,\\n        id,\\n        name,\\n        title\\n     \\n  },\\n      rel,\\n      to {\\naddress,\\n        name\\n     \\n  }\\n   \\n  }\\n \\n  }\\n},\\nticket {\\nallow_attachments,\\n  allow_channelback,\\n  assignee_email,\\n  assignee_id,\\n  attribute_value_ids,\\n  brand_id,\\n  collaborator_ids,\\n  collaborators {\\nemail,\\n    name\\n \\n  },\\n  created_at,\\n  custom_fields {\\nid,\\n    value\\n \\n  },\\n  custom_status_id,\\n  description,\\n  due_at,\\n  email_cc_ids,\\n  external_id,\\n  follower_ids,\\n  followup_ids,\\n  forum_topic_id,\\n  from_messaging_channel,\\n  group_id,\\n  has_incidents,\\n  id,\\n  is_public,\\n  macro_id,\\n  macro_ids,\\n  organization_id,\\n  priority,\\n  problem_id,\\n  raw_subject,\\n  recipient,\\n  requester_id,\\n  safe_update,\\n  sharing_agreement_ids,\\n  status,\\n  subject,\\n  submitter_id,\\n  tags,\\n  ticket_form_id,\\n  type,\\n  updated_at,\\n  updated_stamp,\\n  url,\\n  via {\\nchannel\\n \\n  },\\n  via_followup_source_id,\\n  via_id\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.UpdateTicket"
+  },
+  "DeleteTicket": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"mutation MyMutation {\\n  DeleteTicket(ticket_id: $ticket_id)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.DeleteTicket"
+  },
+  "ListTicketCollaborators": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"query MyQuery {\\n  ListTicketCollaborators(ticket_id: $ticket_id)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.ListTicketCollaborators"
+  },
+  "ListTicketEmailCCs": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"query MyQuery {\\n  ListTicketEmailCCs(ticket_id: $ticket_id)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.ListTicketEmailCCs"
+  },
+  "ListTicketFollowers": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"query MyQuery {\\n  ListTicketFollowers(ticket_id: $ticket_id)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.ListTicketFollowers"
+  },
+  "ListTicketIncidents": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"query MyQuery {\\n  ListTicketIncidents(ticket_id: $ticket_id)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.ListTicketIncidents"
+  },
+  "MarkTicketAsSpamAndSuspendRequester": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"mutation MyMutation {\\n  MarkTicketAsSpamAndSuspendRequester(ticket_id: $ticket_id)\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.MarkTicketAsSpamAndSuspendRequester"
+  },
+  "MergeTicketsIntoTargetTicket": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"mutation MyMutation {\\n  MergeTicketsIntoTargetTicket(ticket_id: $ticket_id) {\\n    job_status {\\nid,\\n  job_type,\\n  message,\\n  progress,\\n  results,\\n  status,\\n  total,\\n  url\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.MergeTicketsIntoTargetTicket"
+  },
+  "TicketRelatedInformation": {
+    "request_vtl": "#set($ticket_id = $input.params(\"ticket_id\"))\n{\n  \"query\": \"query MyQuery {\\n  TicketRelatedInformation(ticket_id: $ticket_id) {\\n    followup_source_ids,\\nfrom_archive,\\nincidents,\\ntopic_id\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.TicketRelatedInformation"
+  },
+  "CountTickets": {
+    "request_vtl": "{\n  \"query\": \"query MyQuery {\\n  CountTickets {\\n    count {\\nrefreshed_at,\\n  value\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.CountTickets"
+  },
+  "TicketsCreateMany": {
+    "request_vtl": "{\n  \"query\": \"mutation MyMutation {\\n  TicketsCreateMany {\\n    job_status {\\nid,\\n  job_type,\\n  message,\\n  progress,\\n  results,\\n  status,\\n  total,\\n  url\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.TicketsCreateMany"
+  },
+  "BulkDeleteTickets": {
+    "request_vtl": "#set($ids = $input.params(\"ids\"))\n{\n  \"query\": \"mutation MyMutation {\\n  BulkDeleteTickets(ids: $ids) {\\n    job_status {\\nid,\\n  job_type,\\n  message,\\n  progress,\\n  results,\\n  status,\\n  total,\\n  url\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.BulkDeleteTickets"
+  },
+  "MarkManyTicketsAsSpam": {
+    "request_vtl": "#set($ids = $input.params(\"ids\"))\n{\n  \"query\": \"mutation MyMutation {\\n  MarkManyTicketsAsSpam(ids: $ids) {\\n    job_status {\\nid,\\n  job_type,\\n  message,\\n  progress,\\n  results,\\n  status,\\n  total,\\n  url\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.MarkManyTicketsAsSpam"
+  },
+  "TicketsShowMany": {
+    "request_vtl": "#set($ids = $input.params(\"ids\"))\n{\n  \"query\": \"query MyQuery {\\n  TicketsShowMany(ids: $ids) {\\n    tickets {\\nallow_attachments,\\n  allow_channelback,\\n  assignee_email,\\n  assignee_id,\\n  attribute_value_ids,\\n  brand_id,\\n  collaborator_ids,\\n  collaborators {\\nemail,\\n    name\\n \\n  },\\n  created_at,\\n  custom_fields {\\nid,\\n    value\\n \\n  },\\n  custom_status_id,\\n  description,\\n  due_at,\\n  email_cc_ids,\\n  external_id,\\n  follower_ids,\\n  followup_ids,\\n  forum_topic_id,\\n  from_messaging_channel,\\n  group_id,\\n  has_incidents,\\n  id,\\n  is_public,\\n  macro_id,\\n  macro_ids,\\n  organization_id,\\n  priority,\\n  problem_id,\\n  raw_subject,\\n  recipient,\\n  requester_id,\\n  safe_update,\\n  sharing_agreement_ids,\\n  status,\\n  subject,\\n  submitter_id,\\n  tags,\\n  ticket_form_id,\\n  type,\\n  updated_at,\\n  updated_stamp,\\n  url,\\n  via {\\nchannel\\n \\n  },\\n  via_followup_source_id,\\n  via_id\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyQuery\"\n}",
+    "response_vtl": "$input.path('$').data.TicketsShowMany"
+  },
+  "TicketsUpdateMany": {
+    "request_vtl": "#set($ids = $input.params(\"ids\"))\n{\n  \"query\": \"mutation MyMutation {\\n  TicketsUpdateMany(ids: $ids) {\\n    job_status {\\nid,\\n  job_type,\\n  message,\\n  progress,\\n  results,\\n  status,\\n  total,\\n  url\\n}\\n  }\\n}\",\n  \"variables\": null,\n  \"operationName\": \"MyMutation\"\n}",
+    "response_vtl": "$input.path('$').data.TicketsUpdateMany"
   }
 }
