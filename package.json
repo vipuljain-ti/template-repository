@@ -1,8 +1,8 @@
 {
-  "name": "cdk-task",
+  "name": "project",
   "version": "0.1.0",
   "bin": {
-    "cdk-task": "bin/cdk-task.js"
+    "cdk-task": "bin/project.js"
   },
   "scripts": {
     "build": "tsc",
