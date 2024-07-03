@@ -1,1 +1,63 @@
+name: Deploy Infrastructure
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install AWS CDK CLI
+      run: npm install -g aws-cdk
+
+    - name: Deploy AppSync Server
+      id: deploy_appsync
+      run: |
+        cdk deploy ZendeskStackTest --require-approval never --outputs-file cdk-outputs.json -c deployGqlApiOnly=true
+        API_ID=$(jq -r '.["ZendeskStackTest"].GraphQLAPIID' cdk-outputs.json)
+        API_URL=$(jq -r '.["ZendeskStackTest"].GraphQLAPIURL' cdk-outputs.json)
+        echo "API_ID=$API_ID" >> $GITHUB_ENV
+        echo "API_URL=$API_URL" >> $GITHUB_ENV
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: 'us-east-1'
+
+    - name: Generate Introspection Schema
+      run: aws appsync get-introspection-schema --api-id ${{ env.API_ID }} --format JSON output.json
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: 'us-east-1'
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Parse OpenAPI spec
+      run: python parse_openapi_spec.py
+
+    - name: Generate VTL Templates
+      run: python vtl_gen.py
+
+    - name: Deploy API Gateway Stack
+      run: |
+        cdk deploy ZendeskStackTest --require-approval never -c graphqlApiId=${{ env.API_ID }} -c graphqlApiUrl=${{ env.API_URL }} -c deployApiOnly=false
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: 'us-east-1'
