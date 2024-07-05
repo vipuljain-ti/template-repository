@@ -9,7 +9,7 @@ from graphql.language.visitor import Visitor, visit
 
 
 RESOLVERS_CONFIG_PATH = "resolvers-config.json"
-GRAPHQL_SCHEMA_PATH = "schema.graphql"
+GRAPHQL_SCHEMA_PATH = "../schema.graphql"
 
 type_defs = load_schema_from_path(GRAPHQL_SCHEMA_PATH)
 query = QueryType()
