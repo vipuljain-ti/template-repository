@@ -14,17 +14,3 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 * `npx cdk synth`   emits the synthesized CloudFormation template
 
 
-## What should we store in the project configuration file.
---- Project:{
-    Project-Name: <>
-    Project-Description: <>
-}
---OpenAPI-Spec-Path
---Graphql-schema-path
--- VTL File path
--- Stack{
-    Stack-name:
-    MAX_RESOURCES_PER_STACK:
-}
--- DynamoDB Table Name
-
