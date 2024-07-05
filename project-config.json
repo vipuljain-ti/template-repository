@@ -3,8 +3,8 @@
     "Name": "My Project Name",
     "Description": "A brief description of the project"
   },
-  "OpenAPI-Spec-Path": "../specs/openapi.yaml",
-  "Graphql-Schema-Path": "../schemas/graphql.schema",
+  "OpenAPI-Spec-Path": "./openapi.json",
+  "Graphql-Schema-Path": "./schema.graphql",
   "VTL-File-Path": "../vtl/mapping.vtl",
   "Stack": {
     "Name": "MyStackName",
