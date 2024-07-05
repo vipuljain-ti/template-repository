@@ -19,8 +19,6 @@ const gzip = util.promisify(zlib.gzip);
 const app = new cdk.App();
 const MAX_RESOURCES_PER_STACK = 50;
 const APP_NAME = "YourProject";
-
-
 const loadVtlTemplates = () => {
   const templatesPath = path.join(__dirname, '../generated_vtl_new.json');
   try {

@@ -1,5 +1,5 @@
 import json
-config_path = "project-config.json"
+config_path = "./project-config.json"
 with open(config_path, 'r') as config_file:
     config = json.load(config_file)
 

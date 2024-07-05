@@ -1,6 +1,7 @@
 import os
 import json
 import importlib.util
+
 from ariadne import load_schema_from_path, ObjectType, QueryType, MutationType, make_executable_schema
 from ariadne.asgi import GraphQL
 from graphql import build_ast_schema, parse
