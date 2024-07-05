@@ -1,7 +1,6 @@
 import os
 import json
 import importlib.util
-from ..config_loader import graphql_schema_path
 from ariadne import load_schema_from_path, ObjectType, QueryType, MutationType, make_executable_schema
 from ariadne.asgi import GraphQL
 from graphql import build_ast_schema, parse
@@ -9,7 +8,7 @@ from graphql.language.visitor import Visitor, visit
 
 
 RESOLVERS_CONFIG_PATH = "resolvers-config.json"
-GRAPHQL_SCHEMA_PATH = graphql_schema_path
+GRAPHQL_SCHEMA_PATH = "../schema.graphql"
 
 type_defs = load_schema_from_path(GRAPHQL_SCHEMA_PATH)
 query = QueryType()
