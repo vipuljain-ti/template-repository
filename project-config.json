@@ -7,8 +7,8 @@
   "Graphql-Schema-Path": "../schemas/graphql.schema",
   "VTL-File-Path": "../vtl/mapping.vtl",
   "Stack": {
-    "Stack-Name": "MyStackName",
-    "Max-Resources-Per-Stack": 200
+    "Name": "MyStackName",
+    "Max-Resources": 200
   },
   "DynamoDB-Table-Name": "MyDynamoDBTableName"
 }
