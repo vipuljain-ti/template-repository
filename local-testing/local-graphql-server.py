@@ -52,5 +52,5 @@ for name in mutation_resolvers:
 
 resolvers = query_resolvers | mutation_resolvers
 
-schema = make_executable_schema(type_defs, query)
+schema = make_executable_schema(type_defs, query, mutation)
 app = GraphQL(schema, debug=True)
