@@ -1,5 +1,5 @@
 import json
-
+from config_loader import openapi_spec_path
 def load_json_file(file_path):
     with open(file_path, 'r') as file:
         return json.load(file)
@@ -51,7 +51,7 @@ def transform_to_custom_format(openapi_spec):
     return custom_format
 
 def main():
-    openapi_path = 'openapi.json'
+    openapi_path = openapi_spec_path
     output_path = 'rest_api_parsed.json'
     
     openapi_spec = load_json_file(openapi_path)
