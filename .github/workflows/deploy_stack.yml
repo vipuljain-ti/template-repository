@@ -22,7 +22,10 @@ jobs:
 
     - name: Install AWS CDK CLI
       run: npm install -g aws-cdk
-
+      
+    - name: Generate VTL Templates
+      run: python vtl_gen.py
+       
     - name: Deploy AppSync Server
       id: deploy_appsync
       run: |
@@ -50,9 +53,6 @@ jobs:
 
     - name: Parse OpenAPI spec
       run: python parse_openapi_spec.py
-
-    - name: Generate VTL Templates
-      run: python vtl_gen.py
 
     - name: Deploy API Gateway Stack
       run: |
