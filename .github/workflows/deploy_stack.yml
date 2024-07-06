@@ -22,18 +22,7 @@ jobs:
 
     - name: Install AWS CDK CLI
       run: npm install -g aws-cdk
-
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Parse OpenAPI spec
-      run: python parse_openapi_spec.py
-      
-    - name: Generate VTL Templates
-      run: python vtl_gen.py
-       
+   
     - name: Deploy AppSync Server
       id: deploy_appsync
       run: |
@@ -53,7 +42,18 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
+    - name: Parse OpenAPI spec
+      run: python parse_openapi_spec.py
+      
+    - name: Generate VTL Templates
+      run: python vtl_gen.py
+      
     - name: Deploy API Gateway Stack
       run: |
         cdk deploy ProjectStackTest --require-approval never -c graphqlApiId=${{ env.API_ID }} -c graphqlApiUrl=${{ env.API_URL }} -c deployApiOnly=false
