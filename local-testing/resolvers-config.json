@@ -1,13 +1,13 @@
 {
     "queries": {
         "GetUser": {
-            "resolver_path": "../src/resolvers/GetUser/resolver.py",
+            "resolver_path": "../resolvers/GetUser/resolver.py",
             "resolver_handler": "lambda_handler"
         }
     },
     "mutations": {
         "CreateUser": {
-            "resolver_path": "../src/resolvers/CreateUser/resolver.py",
+            "resolver_path": "../resolvers/CreateUser/resolver.py",
             "resolver_handler": "lambda_handler"
         }
     }
