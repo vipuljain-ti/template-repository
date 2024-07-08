@@ -62,4 +62,7 @@
     ```bash
     python local-graphql-server.py
     ```
+    ```bash
+    uvicorn local-graphql-server:app --reload
+    ```
     
